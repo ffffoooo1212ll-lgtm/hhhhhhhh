@@ -1,22 +1,12 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>تجربة</title>
-</head>
-<body>
-    <h1>اهلا وسهلا</h1>
-    <p>هذا اول موقع تجريبي الي</p>
-</body>
-</html>
-<!DOCTYPE html>
 <html lang="ar">
 <head>
   <meta charset="UTF-8">
-  <title>الكاميرا</title>
+  <title>📸 الكاميرا</title>
 </head>
 <body>
   <h1>📸 افتح الكاميرا</h1>
+
   <video id="video" autoplay playsinline></video>
   <br>
   <button id="capture">التقاط صورة</button>
@@ -28,24 +18,23 @@
     const capture = document.getElementById('capture');
     const context = canvas.getContext('2d');
 
-    // طلب تشغيل الكاميرا
+    // تشغيل الكاميرا
     navigator.mediaDevices.getUserMedia({ video: true })
       .then(stream => {
         video.srcObject = stream;
       })
       .catch(err => {
-        alert("ما قدرت أفتح الكاميرا: " + err);
+        console.error("خطأ في فتح الكاميرا:", err);
       });
 
-    // التقاط الصورة
+    // التقاط صورة
     capture.addEventListener('click', () => {
+      canvas.style.display = "block";
       canvas.width = video.videoWidth;
       canvas.height = video.videoHeight;
       context.drawImage(video, 0, 0, canvas.width, canvas.height);
-      const imgData = canvas.toDataURL("image/png");
-      alert("📸 تم التقاط الصورة");
-      console.log(imgData); // الصورة موجودة هنا
     });
   </script>
 </body>
 </html>
+ 
