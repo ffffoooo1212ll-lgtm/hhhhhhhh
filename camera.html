@@ -9,3 +9,43 @@
     <p>هذا اول موقع تجريبي الي</p>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>الكاميرا</title>
+</head>
+<body>
+  <h1>📸 افتح الكاميرا</h1>
+  <video id="video" autoplay playsinline></video>
+  <br>
+  <button id="capture">التقاط صورة</button>
+  <canvas id="canvas" style="display:none;"></canvas>
+
+  <script>
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const capture = document.getElementById('capture');
+    const context = canvas.getContext('2d');
+
+    // طلب تشغيل الكاميرا
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(stream => {
+        video.srcObject = stream;
+      })
+      .catch(err => {
+        alert("ما قدرت أفتح الكاميرا: " + err);
+      });
+
+    // التقاط الصورة
+    capture.addEventListener('click', () => {
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      const imgData = canvas.toDataURL("image/png");
+      alert("📸 تم التقاط الصورة");
+      console.log(imgData); // الصورة موجودة هنا
+    });
+  </script>
+</body>
+</html>
